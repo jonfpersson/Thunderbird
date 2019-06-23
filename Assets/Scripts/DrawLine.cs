@@ -8,7 +8,7 @@ public class DrawLine : MonoBehaviour {
     private float dist;
     public Transform player;
     public static bool canGrapplingHook;
-    public float lineDrawSpeed = 700f;
+    public float lineDrawSpeed = 20f;
 
 
     // Use this for initialization
@@ -22,7 +22,6 @@ public class DrawLine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         if (Hool.attached)
         {
             lineRenderer.enabled = true;
@@ -30,19 +29,15 @@ public class DrawLine : MonoBehaviour {
             
             dist = Vector3.Distance(player.position, Hool.hit.point);
 
-            counter += .4f / lineDrawSpeed;
+            counter = lineDrawSpeed;
             float x = Mathf.Lerp(0, dist, counter);
             Vector3 pointA = player.position;
             Vector3 pointB = Hool.hit.point;
             
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
-
             lineRenderer.SetPosition(1, pointAlongLine);
         }
-        else
-        {
-            lineRenderer.enabled = false;
-        }
+        else { lineRenderer.enabled = false; }
 
     }
 }

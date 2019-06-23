@@ -14,7 +14,8 @@ public class Hool : MonoBehaviour {
     bool hasLockedOnTarget;
     
     public RigidbodyFirstPersonController cc;
-    
+
+    GameObject hook;
 
     // Use this for initialization
     void Start () {
@@ -32,31 +33,29 @@ public class Hool : MonoBehaviour {
                 attached = true;
                 rb.isKinematic = true;
                 hasLockedOnTarget = true;
+                hook = Instantiate(Resources.Load("grapplingHook") as GameObject, Hool.hit.point, Quaternion.identity);
+
             }
 
         }
 
-        if (Input.GetButtonUp("Fire2"))
+        if (Input.GetButtonUp("Fire2") && hasLockedOnTarget)
         {
-            if (hasLockedOnTarget)
-            {
-                attached = false;
-                rb.isKinematic = false;
-                rb.freezeRotation = true;
+            attached = false;
+            rb.isKinematic = false;
+            rb.freezeRotation = true;
 
-                rb.velocity = cam.forward * momentum;
-                hasLockedOnTarget = false;
-            }
-
+            rb.velocity = cam.forward * momentum;
+            hasLockedOnTarget = false;
         }
 
         if (attached)
         {
-            momentum += Time.deltaTime * speed / 1.5f;
-            if (momentum > 25)
-                momentum = 25;
-            if (momentum < 10)
-                momentum = 10;
+            momentum += Time.deltaTime * speed / 0.1f;
+          //  if (momentum > 25)
+          //      momentum = 25;
+            if (momentum < 15)
+                momentum = 15;
 
             if (step < 0.5)
                 step = momentum * Time.deltaTime;
