@@ -25,16 +25,13 @@ public class Hool : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         
-        if (Input.GetButtonDown("Fire2"))
-        {
-            if(Physics.Raycast (cam.position, cam.forward, out hit) && hit.distance < 20)
-            {
+        if (Input.GetButtonDown("Fire2")) {
+            if (Physics.Raycast (cam.position, cam.forward, out hit) && hit.distance < 20) {
                 Debug.Log("hit.distance: " + hit.distance);
                 attached = true;
                 rb.isKinematic = true;
                 hasLockedOnTarget = true;
                 hook = Instantiate(Resources.Load("grapplingHook") as GameObject, Hool.hit.point, Quaternion.identity);
-
             }
 
         }
