@@ -17,11 +17,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_PreviouslyGrounded;
         private Vector3 m_OriginalCameraPosition;
 
-
         private void Start()
         {
             motionBob.Setup(Camera, StrideInterval);
             m_OriginalCameraPosition = Camera.transform.localPosition;
+           // m_OriginalCameraPosition = cameraPos;
        //     m_CameraRefocus = new CameraRefocus(Camera, transform.root.transform, Camera.transform.localPosition);
         }
 
