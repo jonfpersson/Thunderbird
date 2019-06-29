@@ -19,7 +19,11 @@ public class sceneLoader : MonoBehaviour
         if (col.gameObject.name == "floor")
         {
             Debug.Log("lol");
-            fadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+            if(SceneManager.GetActiveScene().buildIndex + 1 != 8)
+                fadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+            else
+                fadeToLevel(1);
+
         }
     }
 
@@ -32,7 +36,7 @@ public class sceneLoader : MonoBehaviour
 
     public void onFadeComplete()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+        SceneManager.LoadScene(levelToLoad, LoadSceneMode.Single);
     }
 
     public void reloadScene()
