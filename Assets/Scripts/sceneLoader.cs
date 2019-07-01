@@ -7,22 +7,27 @@ public class sceneLoader : MonoBehaviour
 {
     int levelToLoad;
     public Animator anim;
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.R) || gameObject.transform.position.y < -55) { reloadScene(); }
     }
 
+    //private void Start() { endReached = false; }
+
     void OnCollisionEnter(Collision col)
     {
-        
+        int level = SceneManager.GetActiveScene().buildIndex + 1;
+
+
         if (col.gameObject.name == "floor")
         {
-            Debug.Log("lol");
-            if(SceneManager.GetActiveScene().buildIndex + 1 != 8)
-                fadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
+            Debug.Log("SceneManager.GetActiveScene().buildIndex + 1: " + level);
+            if(level != 8)
+                fadeToLevel(level);
             else
-                fadeToLevel(1);
+                fadeToLevel(3);
 
         }
     }
@@ -30,13 +35,19 @@ public class sceneLoader : MonoBehaviour
     public void fadeToLevel(int levelIndex)
     {
         levelToLoad = levelIndex;
-
         anim.SetTrigger("fadeOut");
     }
 
     public void onFadeComplete()
     {
-        SceneManager.LoadScene(levelToLoad, LoadSceneMode.Single);
+        if (SceneManager.GetActiveScene().buildIndex + 1 != 8)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+        else
+        {
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
+            Cursor.visible = true;
+
+        }
     }
 
     public void reloadScene()
